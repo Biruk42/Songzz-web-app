@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 import "./style.scss";
 import "./media-query.css";
@@ -12,9 +13,11 @@ import { ToastContainer } from "react-toastify";
 import Header from "./components/Header";
 
 function App() {
+  const [active, setActive] = useState("home");
+
   return (
     <div className="App">
-      <Header />
+      <Header setActive={setActive} active={active} />
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
