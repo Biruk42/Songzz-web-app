@@ -1,16 +1,31 @@
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../firebase";
 
-const Detail = () => {
+const Detail = ({ setActive }) => {
   const { id } = useParams();
   const [song, setSong] = useState(null);
-  const [setActive] = useState(null);
+  const [songs, setSongs] = useState([]);
+  const [tags, setTags] = useState([]);
+
+  useEffect(() => {
+    const getSongsData = async () => {
+      const songRef = collection(db, "songs");
+      const songs = await getDocs(songRef);
+      setSongs(songs.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      let tags = [];
+      songs.docs.map((doc) => tags.push(...doc.get("tags")));
+      let uniqueTags = [...new Set(tags)];
+      setTags(uniqueTags);
+    };
+    getSongsData();
+  }, [id]);
   useEffect(() => {
     id && getSongDetail();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
   const getSongDetail = async () => {
     const docRef = doc(db, "songs", id);
     const songDetail = await getDoc(docRef);

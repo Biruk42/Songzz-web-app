@@ -59,7 +59,7 @@ const Home = ({ setActive, user }) => {
       unsub();
       getTrendingSongs();
     };
-  });
+  }, [setActive]);
 
   if (loading) {
     return <Spinner />;

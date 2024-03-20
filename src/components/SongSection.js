@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const SongSection = ({ songs, user, handleDelete }) => {
-  // const userId = user?.uid;
+  const userId = user?.uid;
   return (
     <div>
       <div className="blog-heading text-start py-2 mb-4">Recent Songs</div>
@@ -35,7 +35,7 @@ const SongSection = ({ songs, user, handleDelete }) => {
             <Link to={`/detail/${item.id}`}>
               <button className="btn btn-read">Show Lyrics</button>
             </Link>
-            {user?.uid && item.userId === user.uid && (
+            {userId && item.userId === userId && (
               <div style={{ float: "right" }}>
                 <Link to={`/update/${item.id}`}>
                   <FontAwesome
