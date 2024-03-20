@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const SongSection = ({ songs, user, handleDelete }) => {
-  const userId = user?.uid;
+  // const userId = user?.uid;
   return (
     <div>
       <div className="blog-heading text-start py-2 mb-4">Recent Songs</div>

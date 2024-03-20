@@ -6,9 +6,10 @@ import { db } from "../firebase";
 const Detail = () => {
   const { id } = useParams();
   const [song, setSong] = useState(null);
-  const [active, setActive] = useState(null);
+  const [setActive] = useState(null);
   useEffect(() => {
     id && getSongDetail();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
   const getSongDetail = async () => {
     const docRef = doc(db, "songs", id);
