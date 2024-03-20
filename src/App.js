@@ -3,7 +3,7 @@ import "./App.css";
 import "./style.scss";
 import "./media-query.css";
 import Home from "./pages/Home";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import Detail from "./pages/Detail";
 import AddEditSong from "./pages/AddEditSong";
@@ -51,10 +51,23 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/detail/:id" element={<Detail />} />
-        <Route path="/create" element={<AddEditSong />} />
-        <Route path="/update/:id" element={<AddEditSong />} />
+        <Route
+          path="/create"
+          element={
+            user?.uid ? <AddEditSong user={user} /> : <Navigate to="/" />
+          }
+        />
+        <Route
+          path="/update/:id"
+          element={
+            user?.uid ? <AddEditSong user={user} /> : <Navigate to="/" />
+          }
+        />
         <Route path="/about" element={<About />} />
-        <Route path="/auth" element={<Auth setActive={setActive} />} />
+        <Route
+          path="/auth"
+          element={<Auth setActive={setActive} setUser={setUser} />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
