@@ -74,7 +74,7 @@ const AddEditSong = ({ user, setActive }) => {
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
-            toast.info("Image upload to firebase successfully");
+            toast.info("Image uploaded successfully");
             setForm((prev) => ({ ...prev, imgUrl: downloadUrl }));
           });
         }
@@ -137,7 +137,7 @@ const AddEditSong = ({ user, setActive }) => {
             author: user.displayName,
             userId: user.uid,
           });
-          toast.success("song updated successfully");
+          toast.success("Song updated successfully");
         } catch (err) {
           console.log(err);
         }
