@@ -20,6 +20,7 @@ import { isEmpty } from "lodash";
 import UserComments from "../components/UserComments";
 import CommentBox from "../components/CommentBox";
 import { toast } from "react-toastify";
+import Like from "../components/Like";
 
 const Detail = ({ setActive, user }) => {
   const userId = user?.uid;
@@ -28,6 +29,7 @@ const Detail = ({ setActive, user }) => {
   const [songs, setSongs] = useState([]);
   const [tags, setTags] = useState([]);
   const [comments, setComments] = useState([]);
+  let [likes, setLikes] = useState([]);
   const [userComment, setUserComment] = useState("");
   const [relatedSongs, setRelatedSongs] = useState([]);
   useEffect(() => {
@@ -62,6 +64,7 @@ const Detail = ({ setActive, user }) => {
       where("tags", "array-contains-any", songDetail.data().tags, limit(3))
     );
     setComments(songDetail.data().comments ? songDetail.data().comments : []);
+    setLikes(songDetail.data().likes ? songDetail.data().likes : []);
     const relatedSongSnapshot = await getDocs(relatedSongsQuery);
     const relatedSongs = [];
     relatedSongSnapshot.forEach((doc) => {
@@ -87,7 +90,25 @@ const Detail = ({ setActive, user }) => {
     setComments(comments);
     setUserComment("");
   };
-
+  const handleLike = async () => {
+    if (userId) {
+      if (song?.likes) {
+        const index = likes.findIndex((id) => id === userId);
+        if (index === -1) {
+          likes.push(userId);
+          setLikes([...new Set(likes)]);
+        } else {
+          likes = likes.filter((id) => id !== userId);
+          setLikes(likes);
+        }
+      }
+      await updateDoc(doc(db, "songs", id), {
+        ...song,
+        likes,
+        timestamp: serverTimestamp(),
+      });
+    }
+  };
   return (
     <div className="single">
       <div
@@ -106,6 +127,7 @@ const Detail = ({ setActive, user }) => {
               <span className="meta-info text-start">
                 By <p className="author">{song?.author}</p> -&nbsp;
                 {song?.timestamp.toDate().toDateString()}
+                <Like handleLike={handleLike} likes={likes} userId={userId} />
               </span>
               <p className="text-start">{song?.description}</p>
               <div className="text-start">
