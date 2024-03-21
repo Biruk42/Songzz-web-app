@@ -3,9 +3,12 @@ import {
   deleteDoc,
   doc,
   getDocs,
+  limit,
   onSnapshot,
   query,
+  orderBy,
   where,
+  startAfter,
 } from "firebase/firestore";
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
@@ -16,7 +19,7 @@ import Tags from "../components/Tags";
 import MostPopular from "../components/MostPopular";
 import Trending from "../components/Trending";
 import Search from "../components/Search";
-import { isEmpty, isNull, orderBy } from "lodash";
+import { isEmpty, isNull } from "lodash";
 import { useLocation } from "react-router-dom";
 
 function useQuery() {
@@ -28,7 +31,9 @@ const Home = ({ setActive, user, active }) => {
   const [songs, setSongs] = useState([]);
   const [tags, setTags] = useState([]);
   const [search, setSearch] = useState("");
+  const [lastVisible, setLastVisible] = useState(null);
   const [trendSongs, setTrendSongs] = useState([]);
+  const [hide, setHide] = useState(false);
   const queryString = useQuery();
   const searchQuery = queryString.get("searchQuery");
   const location = useLocation();
@@ -58,7 +63,7 @@ const Home = ({ setActive, user, active }) => {
         });
         const uniqueTags = [...new Set(tags)];
         setTags(uniqueTags);
-        setSongs(list);
+        // setSongs(list);
         setLoading(false);
         setActive("home");
       },
@@ -72,6 +77,49 @@ const Home = ({ setActive, user, active }) => {
       getTrendingSongs();
     };
   }, [setActive, active]);
+
+  useEffect(() => {
+    getSongs();
+    setHide(false);
+  }, [active]);
+
+  const getSongs = async () => {
+    const songRef = collection(db, "songs");
+    const firstFour = query(songRef, orderBy("title"), limit(4));
+    // const songsQuery = query(songRef, orderBy("title"));
+    const docSnapshot = await getDocs(firstFour);
+    setSongs(docSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    setLastVisible(docSnapshot.docs[docSnapshot.docs.length - 1]);
+  };
+
+  const updateState = (docSnapshot) => {
+    const isCollectionEmpty = docSnapshot.size === 0;
+    if (!isCollectionEmpty) {
+      const songsData = docSnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setSongs((songs) => [...songs, ...songsData]);
+      setLastVisible(docSnapshot.docs[docSnapshot.docs.length - 1]);
+    } else {
+      toast.info("No more songs to display");
+      setHide(true);
+    }
+  };
+
+  const fetchMore = async () => {
+    setLoading(true);
+    const songRef = collection(db, "songs");
+    const nextFour = query(
+      songRef,
+      orderBy("title"),
+      limit(4),
+      startAfter(lastVisible)
+    );
+    const docSnapshot = await getDocs(nextFour);
+    updateState(docSnapshot);
+    setLoading(false);
+  };
 
   const searchSongs = async () => {
     const songRef = collection(db, "songs");
@@ -92,6 +140,7 @@ const Home = ({ setActive, user, active }) => {
     });
     const combinedSearchSongs = searchTitleSongs.concat(searchTagSongs);
     setSongs(combinedSearchSongs);
+    setHide(true);
     setActive("");
   };
   useEffect(() => {
@@ -117,16 +166,11 @@ const Home = ({ setActive, user, active }) => {
     }
   };
 
-  const getSongs = async () => {
-    const songRef = collection(db, "songs");
-    // const songsQuery = query(songRef, orderBy("title"));
-    const docSnapshot = await getDocs(songRef);
-    setSongs(docSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-  };
   const handleChange = (e) => {
     const { value } = e.target;
     if (isEmpty(value)) {
       getSongs();
+      setHide(false);
     }
     setSearch(value);
   };
@@ -147,11 +191,19 @@ const Home = ({ setActive, user, active }) => {
                 </h4>
               </>
             )}
-            <SongSection
-              songs={songs}
-              user={user}
-              handleDelete={handleDelete}
-            />
+            {songs?.map((song) => (
+              <SongSection
+                key={song.id}
+                user={user}
+                handleDelete={handleDelete}
+                {...song}
+              />
+            ))}
+            {!hide && (
+              <button className="btn btn-primary" onClick={fetchMore}>
+                Load More
+              </button>
+            )}
           </div>
           <div className="col-md-3">
             <Search search={search} handleChange={handleChange} />

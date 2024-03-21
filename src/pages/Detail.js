@@ -2,6 +2,8 @@ import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../firebase";
+import Tags from "../components/Tags";
+import MostPopular from "../components/MostPopular";
 
 const Detail = ({ setActive }) => {
   const { id } = useParams();
@@ -52,10 +54,14 @@ const Detail = ({ setActive }) => {
                 {song?.timestamp.toDate().toDateString()}
               </span>
               <p className="text-start">{song?.description}</p>
+              {/* <div className="text-start">
+                <Tags tags={song?.tags} />
+              </div> */}
             </div>
             <div className="col-md-3">
-              <h2>Tags</h2>
-              <h2>Most Popular</h2>
+              {/* <div className="blog-heading text-start py-2 mb-4">Tags</div> */}
+              <Tags tags={tags} />
+              <MostPopular title={"Recent Songs"} songs={songs} />
             </div>
           </div>
         </div>
