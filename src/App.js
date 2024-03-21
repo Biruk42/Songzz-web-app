@@ -16,6 +16,7 @@ import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
 import TagSong from "./pages/TagSong";
 import CategorySong from "./pages/CategorySong";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const [active, setActive] = useState("home");
@@ -49,6 +50,7 @@ function App() {
         user={user}
         handleLogout={handleLogout}
       />
+      <ScrollToTop />
       <ToastContainer />
       <Routes>
         <Route
