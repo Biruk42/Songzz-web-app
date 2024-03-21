@@ -1,10 +1,13 @@
 import {
+  Timestamp,
   collection,
   doc,
   getDoc,
   getDocs,
   limit,
   query,
+  serverTimestamp,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
@@ -13,12 +16,19 @@ import { db } from "../firebase";
 import Tags from "../components/Tags";
 import MostPopular from "../components/MostPopular";
 import RelatedSong from "../components/RelatedSong";
+import { isEmpty } from "lodash";
+import UserComments from "../components/UserComments";
+import CommentBox from "../components/CommentBox";
+import { toast } from "react-toastify";
 
-const Detail = ({ setActive }) => {
+const Detail = ({ setActive, user }) => {
+  const userId = user?.uid;
   const { id } = useParams();
   const [song, setSong] = useState(null);
   const [songs, setSongs] = useState([]);
   const [tags, setTags] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [userComment, setUserComment] = useState("");
   const [relatedSongs, setRelatedSongs] = useState([]);
   useEffect(() => {
     const getSongsData = async () => {
@@ -51,6 +61,7 @@ const Detail = ({ setActive }) => {
       songRef,
       where("tags", "array-contains-any", songDetail.data().tags, limit(3))
     );
+    setComments(songDetail.data().comments ? songDetail.data().comments : []);
     const relatedSongSnapshot = await getDocs(relatedSongsQuery);
     const relatedSongs = [];
     relatedSongSnapshot.forEach((doc) => {
@@ -59,7 +70,24 @@ const Detail = ({ setActive }) => {
     setRelatedSongs(relatedSongs);
     setActive(null);
   };
-  console.log(relatedSongs);
+  const handleComment = async (e) => {
+    e.preventDefault();
+    comments.push({
+      createdAt: Timestamp.fromDate(new Date()),
+      userId,
+      name: user?.displayName,
+      body: userComment,
+    });
+    toast.success("Comment posted successfully");
+    await updateDoc(doc(db, "songs", id), {
+      ...song,
+      comments,
+      timestamp: serverTimestamp(),
+    });
+    setComments(comments);
+    setUserComment("");
+  };
+
   return (
     <div className="single">
       <div
@@ -83,7 +111,31 @@ const Detail = ({ setActive }) => {
               <div className="text-start">
                 <Tags tags={song?.tags} />
               </div>
+              <br />
+              <div className="custombox">
+                <h4 className="small-title">{comments?.length} Comment</h4>
+                {isEmpty(comments) ? (
+                  <UserComments
+                    msg={
+                      "No Comment yet posted on this song. Be the first to comment"
+                    }
+                  />
+                ) : (
+                  <>
+                    {comments?.map((comment) => (
+                      <UserComments {...comment} />
+                    ))}
+                  </>
+                )}
+              </div>
+              <CommentBox
+                userId={userId}
+                userComment={userComment}
+                setUserComment={setUserComment}
+                handleComment={handleComment}
+              />
             </div>
+
             <div className="col-md-3">
               <div className="blog-heading text-start py-2 mb-4">Tags</div>
               <Tags tags={tags} />
