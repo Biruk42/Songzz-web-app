@@ -14,6 +14,8 @@ import Header from "./components/Header";
 import Auth from "./pages/Auth";
 import { auth } from "./firebase";
 import { signOut } from "firebase/auth";
+import TagSong from "./pages/TagSong";
+import CategorySong from "./pages/CategorySong";
 
 function App() {
   const [active, setActive] = useState("home");
@@ -76,6 +78,11 @@ function App() {
               <Navigate to="/" />
             )
           }
+        />
+        <Route path="/tag/:tag" element={<TagSong setActive={setActive} />} />
+        <Route
+          path="/category/:category"
+          element={<CategorySong setActive={setActive} />}
         />
         <Route path="/about" element={<About />} />
         <Route

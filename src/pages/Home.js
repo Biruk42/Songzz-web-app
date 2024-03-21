@@ -21,6 +21,7 @@ import Trending from "../components/Trending";
 import Search from "../components/Search";
 import { isEmpty, isNull } from "lodash";
 import { useLocation } from "react-router-dom";
+import Category from "../components/Category";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -33,6 +34,7 @@ const Home = ({ setActive, user, active }) => {
   const [search, setSearch] = useState("");
   const [lastVisible, setLastVisible] = useState(null);
   const [trendSongs, setTrendSongs] = useState([]);
+  const [totalSongs, setTotalSongs] = useState(null);
   const [hide, setHide] = useState(false);
   const queryString = useQuery();
   const searchQuery = queryString.get("searchQuery");
@@ -63,6 +65,7 @@ const Home = ({ setActive, user, active }) => {
         });
         const uniqueTags = [...new Set(tags)];
         setTags(uniqueTags);
+        setTotalSongs(list);
         // setSongs(list);
         setLoading(false);
         setActive("home");
@@ -175,6 +178,24 @@ const Home = ({ setActive, user, active }) => {
     setSearch(value);
   };
 
+  const counts = totalSongs.reduce((prevValue, currentValue) => {
+    let name = currentValue.category;
+    if (!prevValue.hasOwnProperty(name)) {
+      prevValue[name] = 0;
+    }
+    prevValue[name]++;
+    delete prevValue["undefined"];
+    return prevValue;
+  }, {});
+
+  const categoryCount = Object.keys(counts).map((k) => {
+    return {
+      category: k,
+      count: counts[k],
+    };
+  });
+
+  console.log(categoryCount);
   return (
     <div className="container-fluid pb-4 pt-4 padding">
       <div className="container padding">
@@ -209,6 +230,7 @@ const Home = ({ setActive, user, active }) => {
             <Search search={search} handleChange={handleChange} />
             <Tags tags={tags} />
             <MostPopular songs={songs} />
+            <Category catgSongsCount={categoryCount} />
           </div>
         </div>
       </div>
