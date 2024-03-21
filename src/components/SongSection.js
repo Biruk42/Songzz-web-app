@@ -9,7 +9,6 @@ const SongSection = ({ songs, user, handleDelete }) => {
   const userId = user?.uid;
   return (
     <div>
-      <div className="blog-heading text-start py-2 mb-4">Recent Songs</div>
       {songs?.map((item) => (
         <div className="row pb-4" key={item.id}>
           <div className="col-md-5">
@@ -56,7 +55,6 @@ const SongSection = ({ songs, user, handleDelete }) => {
           </div>
         </div>
       ))}
-      ;
     </div>
   );
 };
