@@ -40,9 +40,16 @@ $yellow: #f5bc04;
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
+//Auth
+.text-center.heading.py-2 {
+  color: white;
+}
 
 // Header
-
+.navbar.navbar-expand-lg.navbar-light.bg-light {
+  padding: 0;
+  font-weight: bold;
+}
 .navbar-light .navbar-nav .open > .nav-link,
 .navbar-light .navbar-nav .active > .nav-link,
 .navbar-light .navbar-nav .nav-link.open,
@@ -82,7 +89,9 @@ $yellow: #f5bc04;
 }
 
 .bg-faded {
-  background-color: #f7f7f7;
+  background: #373b44; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #4286f4, #373b44);
+  background: linear-gradient(to right, #4286f4, #373b44);
 }
 
 .mobile_logo_width {
@@ -96,7 +105,7 @@ $yellow: #f5bc04;
 
 // form
 .heading {
-  font-size: 20px;
+  font-size: 24px;
   color: #424040;
   font-weight: 600;
 }
@@ -142,7 +151,7 @@ $yellow: #f5bc04;
 }
 
 .btn-add {
-  background: #bf7034 !important;
+  background: $yellow !important;
   @include border-radius(0!important);
   color: #fff !important;
   padding: 10px 50px !important;
@@ -170,7 +179,7 @@ $yellow: #f5bc04;
 
 .trending {
   float: left;
-  color: #806a78;
+  color: #181717;
   font-size: 18px;
   margin: auto;
 }
@@ -179,8 +188,9 @@ $yellow: #f5bc04;
 
 .song-heading {
   font-size: 24px;
-  color: #222;
-  border-bottom: 1px solid #777;
+  font-weight: bold;
+  color: white;
+  border-bottom: 1px solid #858484;
 }
 
 .songs-img {
@@ -204,8 +214,8 @@ $yellow: #f5bc04;
 }
 
 .title {
-  font-size: 17px;
-  color: #222 !important;
+  font-size: 18px;
+  color: #212121 !important;
   font-weight: 800;
   font-family: "Poppins";
   text-decoration: none;
@@ -215,7 +225,18 @@ $yellow: #f5bc04;
 .category {
   display: inline-block;
   position: relative;
-  background-color: #4287f5;
+  background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(0, 0, 0, 0.15) 100%
+    ),
+    radial-gradient(
+        at top center,
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(0, 0, 0, 0.4) 120%
+      )
+      #989898;
+  background-blend-mode: multiply, multiply;
   padding: 4px 8px;
   color: #fff;
   text-decoration: none;
@@ -226,17 +247,17 @@ $yellow: #f5bc04;
   border-radius: 4px;
 }
 
-.fa-trash {
-  color: #c43421 !important;
+.edit-icon {
+  color: #ffa500;
 }
 
-.fa-edit {
-  color: lightsalmon !important;
+.delete-icon {
+  color: #dc3545;
 }
 
 .meta-info {
   font-size: 15px;
-  color: #222;
+  color: #24273a;
   display: block;
   font-family: "Poppins";
   text-decoration: none;
@@ -244,7 +265,7 @@ $yellow: #f5bc04;
 
 .song-single-content .meta-info {
   margin-top: 8px;
-  border-bottom: 1px solid #777;
+  border-bottom: 1px solid #d8d7d7;
   margin-bottom: 15px;
 }
 
@@ -256,7 +277,7 @@ $yellow: #f5bc04;
 
 .short-description {
   font-size: 14px;
-  color: #777;
+  color: #b1afaf;
 }
 
 .btn-read {
@@ -278,13 +299,15 @@ $yellow: #f5bc04;
 .song-title-box {
   width: 38.2%;
   z-index: 555;
-  background-size: cover;
-  background-repeat: no-repeat;
+  // background-size: cover;
+  // background-repeat: no-repeat;
+  background-size: contain;
+  background-repeat: repeat;
   background-position: center center;
 
   .single & {
     position: relative;
-    height: 700px;
+    height: 550px;
     width: 100%;
   }
 
@@ -311,10 +334,11 @@ $yellow: #f5bc04;
     }
 
     h2 {
+      font-family: cursive;
       color: white;
       font-weight: 300;
       .single & {
-        font-size: 72px;
+        font-size: 64px;
       }
     }
 
@@ -331,7 +355,10 @@ $yellow: #f5bc04;
 
 .song-single-content {
   z-index: 999;
-  background: white;
+  // background: white;
+  background: #373b44; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #4286f4, #373b44);
+  background: linear-gradient(to right, #4286f4, #373b44);
 
   p,
   ul li {
@@ -382,10 +409,13 @@ $yellow: #f5bc04;
 
 .most-popular-font-meta {
   font-size: 12px;
-  color: #777;
+  color: #8d8b8b;
 }
 
 // Trending
+// .container-fluid.pb-4.pt-4.padding {
+//   background-color: #b47b3f;
+// }
 .trending-img-position {
   position: relative;
   overflow: hidden;

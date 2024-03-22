@@ -178,7 +178,7 @@ const AddEditSong = ({ user, setActive }) => {
                 />
               </div>
               <div className="col-12 py-3">
-                <p className="trending">Is it trending song ?</p>
+                <p className="trending">Is it trending?</p>
                 <div className="form-check-inline mx-2">
                   <input
                     type="radio"
@@ -227,12 +227,22 @@ const AddEditSong = ({ user, setActive }) => {
                 />
               </div>
               <div className="mb-3">
-                <input
-                  type="file"
-                  className="form-control"
-                  onChange={(e) => setFile(e.target.files[0])}
-                />
+                {progress !== null && progress < 100 ? (
+                  <progress value={progress} max="100" />
+                ) : (
+                  <>
+                    <input
+                      type="file"
+                      className="form-control"
+                      onChange={(e) => setFile(e.target.files[0])}
+                    />
+                    {file && (
+                      <p className="file-info">Selected File: {file.name}</p>
+                    )}
+                  </>
+                )}
               </div>
+
               <div className="col-12 py-3 text-center">
                 <button
                   className="btn btn-add"

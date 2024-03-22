@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import FontAwesome from "react-fontawesome";
 import { Link } from "react-router-dom";
 import { excerpt } from "../utility";
@@ -13,7 +13,6 @@ const SongSection = ({
   imgUrl,
   author,
   userId,
-  timestamp,
   user,
   handleDelete,
 }) => {
@@ -47,15 +46,16 @@ const SongSection = ({
               <Link to={`/update/${id}`}>
                 <FontAwesome
                   name="edit"
+                  className="edit-icon"
                   style={{ margin: "15px", cursor: "pointer" }}
-                  size="2x"
+                  size="1x"
                 />
               </Link>
               <FontAwesomeIcon
                 icon={faTrash}
-                // name="trash"
+                className="delete-icon"
                 style={{ cursor: "pointer" }}
-                size="2x"
+                size="1x"
                 onClick={() => handleDelete(id)}
               />
             </div>

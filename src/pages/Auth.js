@@ -71,6 +71,8 @@ const Auth = ({ setActive, setUser }) => {
         );
       } else if (error.code === "auth/weak-password") {
         toast.error("Password should be at least 6 characters");
+      } else if (error.code === "invalid-argument") {
+        toast.error("Error");
       } else {
         console.error("An error occurred:", error);
       }
