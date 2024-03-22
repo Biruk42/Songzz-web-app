@@ -42,7 +42,6 @@ function App() {
       navigate("/auth");
     });
   };
-
   return (
     <div className="App">
       <Header

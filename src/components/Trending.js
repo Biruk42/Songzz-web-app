@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import React from "react";
 import OwlCarousel from "react-owl-carousel";
 import { Link } from "react-router-dom";
