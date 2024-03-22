@@ -34,12 +34,12 @@ const Header = ({ active, setActive, user, handleLogout }) => {
                     Home
                   </li>
                 </Link>
-                <Link to="/blogs" style={{ textDecoration: "none" }}>
+                <Link to="/songs" style={{ textDecoration: "none" }}>
                   <li
                     className={`nav-item nav-link ${
-                      active === "blogs" ? "active" : ""
+                      active === "songs" ? "active" : ""
                     }`}
-                    onClick={() => setActive("blogs")}>
+                    onClick={() => setActive("songs")}>
                     Songs
                   </li>
                 </Link>

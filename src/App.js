@@ -17,6 +17,7 @@ import { signOut } from "firebase/auth";
 import TagSong from "./pages/TagSong";
 import CategorySong from "./pages/CategorySong";
 import ScrollToTop from "./components/ScrollToTop";
+import Songs from "./pages/Songs";
 
 function App() {
   const [active, setActive] = useState("home");
@@ -81,6 +82,7 @@ function App() {
             )
           }
         />
+        <Route path="/songs" element={<Songs setActive={setActive} />} />
         <Route path="/tag/:tag" element={<TagSong setActive={setActive} />} />
         <Route
           path="/category/:category"

@@ -30,6 +30,7 @@ function useQuery() {
 const Home = ({ setActive, user, active }) => {
   const [loading, setLoading] = useState(true);
   const [songs, setSongs] = useState([]);
+  const [mostPopularSongs, setMostPopularSongs] = useState();
   const [tags, setTags] = useState([]);
   const [search, setSearch] = useState("");
   const [lastVisible, setLastVisible] = useState(null);
@@ -92,6 +93,9 @@ const Home = ({ setActive, user, active }) => {
     // const songsQuery = query(songRef, orderBy("title"));
     const docSnapshot = await getDocs(firstFour);
     setSongs(docSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    setMostPopularSongs(
+      docSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+    );
     setLastVisible(docSnapshot.docs[docSnapshot.docs.length - 1]);
   };
 
@@ -157,11 +161,12 @@ const Home = ({ setActive, user, active }) => {
     return <Spinner />;
   }
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete that song?")) {
+    if (window.confirm("Are you sure you want to delete this song?")) {
       try {
         setLoading(true);
         await deleteDoc(doc(db, "songs", id));
         toast.success("Song deleted successfully");
+        getSongs();
         setLoading(false);
       } catch (err) {
         console.log(err);
@@ -194,8 +199,6 @@ const Home = ({ setActive, user, active }) => {
       count: counts[k],
     };
   });
-
-  console.log(categoryCount);
   return (
     <div className="container-fluid pb-4 pt-4 padding">
       <div className="container padding">
@@ -230,7 +233,7 @@ const Home = ({ setActive, user, active }) => {
             <Search search={search} handleChange={handleChange} />
             <div className="blog-heading text-start py-2 mb-4">Tags</div>
             <Tags tags={tags} />
-            <FeatureSongs title={"Most Popular"} songs={songs} />
+            <FeatureSongs title={"Most Popular"} songs={mostPopularSongs} />
             <Category catgSongsCount={categoryCount} />
           </div>
         </div>

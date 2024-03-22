@@ -26,6 +26,7 @@ const CategorySong = ({ setActive }) => {
   useEffect(() => {
     getCategorySongs();
     setActive(null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {
