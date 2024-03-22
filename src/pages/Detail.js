@@ -8,13 +8,14 @@ import {
   query,
   serverTimestamp,
   updateDoc,
+  orderBy,
   where,
 } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../firebase";
 import Tags from "../components/Tags";
-import MostPopular from "../components/MostPopular";
+import FeatureSongs from "../components/FeatureSongs";
 import RelatedSong from "../components/RelatedSong";
 import { isEmpty } from "lodash";
 import UserComments from "../components/UserComments";
@@ -33,16 +34,17 @@ const Detail = ({ setActive, user }) => {
   const [userComment, setUserComment] = useState("");
   const [relatedSongs, setRelatedSongs] = useState([]);
   useEffect(() => {
-    const getSongsData = async () => {
+    const getRecentSongs = async () => {
       const songRef = collection(db, "songs");
-      const songs = await getDocs(songRef);
-      setSongs(songs.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-      let tags = [];
-      songs.docs.map((doc) => tags.push(...doc.get("tags")));
-      let uniqueTags = [...new Set(tags)];
-      setTags(uniqueTags);
+      const recentSongs = query(
+        songRef,
+        orderBy("timestamp", "desc"),
+        limit(5)
+      );
+      const docSnapshot = await getDocs(recentSongs);
+      setSongs(docSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     };
-    getSongsData();
+    getRecentSongs();
   }, [id]);
   useEffect(() => {
     id && getSongDetail();
@@ -51,6 +53,7 @@ const Detail = ({ setActive, user }) => {
 
   const getSongDetail = async () => {
     const songRef = collection(db, "songs");
+
     const docRef = doc(db, "songs", id);
     const songDetail = await getDoc(docRef);
     const songs = await getDocs(songRef);
@@ -161,7 +164,7 @@ const Detail = ({ setActive, user }) => {
             <div className="col-md-3">
               <div className="blog-heading text-start py-2 mb-4">Tags</div>
               <Tags tags={tags} />
-              <MostPopular title={"Recent Songs"} songs={songs} />
+              <FeatureSongs title={"Recent Songs"} songs={songs} />
             </div>
           </div>
           <RelatedSong id={id} songs={relatedSongs} />

@@ -16,7 +16,7 @@ import SongSection from "../components/SongSection";
 import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
 import Tags from "../components/Tags";
-import MostPopular from "../components/MostPopular";
+import FeatureSongs from "../components/FeatureSongs";
 import Trending from "../components/Trending";
 import Search from "../components/Search";
 import { isEmpty, isNull } from "lodash";
@@ -230,7 +230,7 @@ const Home = ({ setActive, user, active }) => {
             <Search search={search} handleChange={handleChange} />
             <div className="blog-heading text-start py-2 mb-4">Tags</div>
             <Tags tags={tags} />
-            <MostPopular songs={songs} />
+            <FeatureSongs title={"Most Popular"} songs={songs} />
             <Category catgSongsCount={categoryCount} />
           </div>
         </div>

@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const MostPopular = ({ songs }) => {
+const FeatureSongs = ({ songs, title }) => {
   const navigate = useNavigate();
   return (
     <div>
-      <div className="blog-heading text-start pt-3 py-2 mb-4">Most Popular</div>
+      <div className="blog-heading text-start pt-3 py-2 mb-4">{title}</div>
       {songs?.map((item) => (
         <div
           className="row pb-3"
@@ -31,4 +31,4 @@ const MostPopular = ({ songs }) => {
   );
 };
 
-export default MostPopular;
+export default FeatureSongs;
