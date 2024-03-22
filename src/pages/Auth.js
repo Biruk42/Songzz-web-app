@@ -65,6 +65,10 @@ const Auth = ({ setActive, setUser }) => {
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         toast.error("Email is already in use.");
+      } else if (error.code === "auth/invalid-credential") {
+        toast.error(
+          "Invalid credentials. Please check your email and password."
+        );
       } else {
         console.error("An error occurred:", error);
       }
