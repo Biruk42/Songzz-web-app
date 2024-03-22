@@ -30,35 +30,45 @@ const Auth = ({ setActive, setUser }) => {
 
   const handleAuth = async (e) => {
     e.preventDefault();
-    if (!signUp) {
-      if (email && password) {
-        const { user } = await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        setUser(user);
-        setActive("home");
+    try {
+      if (!signUp) {
+        if (email && password) {
+          const { user } = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          setUser(user);
+          setActive("home");
+        } else {
+          return toast.error("All fields are mandatory to fill");
+        }
       } else {
-        return toast.error("All fields are mandatory to fill");
+        if (password !== confirmPassword) {
+          return toast.error("Password don't match");
+        }
+        if (firstName && lastName && email && password) {
+          const { user } = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          await updateProfile(user, {
+            displayName: `${firstName} ${lastName}`,
+          });
+          setActive("home");
+        } else {
+          return toast.error("All fields are mandatory to fill");
+        }
       }
-    } else {
-      if (password !== confirmPassword) {
-        return toast.error("Password don't match");
-      }
-      if (firstName && lastName && email && password) {
-        const { user } = await createUserWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-        await updateProfile(user, { displayName: `${firstName} ${lastName}` });
-        setActive("home");
+      navigate("/");
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        toast.error("Email is already in use.");
       } else {
-        return toast.error("All fields are mandatory to fill");
+        console.error("An error occurred:", error);
       }
     }
-    navigate("/");
   };
 
   return (
