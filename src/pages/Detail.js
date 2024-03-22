@@ -124,15 +124,15 @@ const Detail = ({ setActive, user }) => {
   return (
     <div className="single">
       <div
-        className="blog-title-box"
+        className="song-title-box"
         style={{ backgroundImage: `url('${song?.imgUrl}')` }}>
         <div className="overlay"></div>
-        <div className="blog-title">
+        <div className="song-title">
           <span>{song?.timestamp.toDate().toDateString()}</span>
           <h2>{song?.title}</h2>
         </div>
       </div>
-      <div className="container-fluid pb-4 pt-4 padding blog-single-content">
+      <div className="container-fluid pb-4 pt-4 padding song-single-content">
         <div className="container padding">
           <div className="row mx-0">
             <div className="col-md-8">
@@ -173,7 +173,7 @@ const Detail = ({ setActive, user }) => {
             </div>
 
             <div className="col-md-3">
-              <div className="blog-heading text-start py-2 mb-4">Tags</div>
+              <div className="song-heading text-start py-2 mb-4">Tags</div>
               <Tags tags={tags} />
               <FeatureSongs title={"Recent Songs"} songs={songs} />
             </div>

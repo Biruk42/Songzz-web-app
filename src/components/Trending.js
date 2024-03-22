@@ -27,7 +27,7 @@ const Trending = ({ songs }) => {
   return (
     <>
       <div>
-        <div className="blog-heading text-start py-2 mb-4">Trending</div>
+        <div className="song-heading text-start py-2 mb-4">Trending Songs</div>
       </div>
       <OwlCarousel className="owl-theme" {...options}>
         {songs?.map((item) => (
@@ -44,9 +44,7 @@ const Trending = ({ songs }) => {
                 <div className="trending-img-absolute"></div>
                 <div className="trending-img-absolute-1">
                   <span className="text-white">{item.title}</span>
-                  <div className="trending-meta-info">
-                    {item.author} - {item.timestamp.toDate().toDateString()}
-                  </div>
+                  <div className="trending-meta-info">{item.author}</div>
                 </div>
               </div>
             </Link>

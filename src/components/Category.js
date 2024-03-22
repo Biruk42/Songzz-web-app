@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 const Category = ({ catgSongsCount }) => {
   return (
     <div className="widget">
-      <div className="blog-heading text-start py-2 mb-4">Category</div>
+      <div className="song-heading text-start py-2 mb-4">Category</div>
       <div className="link-widget">
         <ul>
           {catgSongsCount?.map((item, index) => (
             <li key={index}>
               <Link
+                className="category-link"
                 to={`/category/${item.category}`}
                 style={{
                   textDecoration: "none",

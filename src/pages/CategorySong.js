@@ -37,7 +37,7 @@ const CategorySong = ({ setActive }) => {
     <div>
       <div className="container">
         <div className="row">
-          <div className="blog-heading text-center py-2 mb-4">
+          <div className="song-heading text-center py-2 mb-4">
             Category: <strong>{category.toLocaleUpperCase()}</strong>
           </div>
           {categorySongs?.map((item) => (

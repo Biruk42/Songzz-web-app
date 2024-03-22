@@ -4,7 +4,7 @@ import Card from "./Card";
 const RelatedSong = ({ songs, id }) => {
   return (
     <div>
-      <div className="blog-heading text-start pt-3 py-2 mb-4">
+      <div className="song-heading text-start pt-3 py-2 mb-4">
         Related Songs
       </div>
       <div className="col-md-12 text-left justify-content-center">

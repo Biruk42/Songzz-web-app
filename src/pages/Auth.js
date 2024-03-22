@@ -69,6 +69,8 @@ const Auth = ({ setActive, setUser }) => {
         toast.error(
           "Invalid credentials. Please check your email and password."
         );
+      } else if (error.code === "auth/weak-password") {
+        toast.error("Password should be at least 6 characters");
       } else {
         console.error("An error occurred:", error);
       }

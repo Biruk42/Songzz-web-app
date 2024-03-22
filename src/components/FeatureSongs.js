@@ -5,7 +5,7 @@ const FeatureSongs = ({ songs, title }) => {
   const navigate = useNavigate();
   return (
     <div>
-      <div className="blog-heading text-start pt-3 py-2 mb-4">{title}</div>
+      <div className="song-heading text-start pt-3 py-2 mb-4">{title}</div>
       {songs?.map((item) => (
         <div
           className="row pb-3"
@@ -22,7 +22,7 @@ const FeatureSongs = ({ songs, title }) => {
           <div className="col-7 padding">
             <div className="text-start most-popular-font">{item.title}</div>
             <div className="text-start most-popular-font-meta">
-              {item.timestamp.toDate().toDateString()}
+              {item.author}
             </div>
           </div>
         </div>

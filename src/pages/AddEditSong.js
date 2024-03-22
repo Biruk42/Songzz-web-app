@@ -159,7 +159,7 @@ const AddEditSong = ({ user, setActive }) => {
         </div>
         <div className="row h-100 justify-content-center align-items-center">
           <div className="col-10 col-md-8 col-lg-6">
-            <form className="row blog-form" onSubmit={handleSubmit}>
+            <form className="row song-form" onSubmit={handleSubmit}>
               <div className="col-12 py-3">
                 <input
                   type="text"

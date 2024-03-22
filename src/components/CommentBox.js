@@ -5,7 +5,7 @@ const CommentBox = ({ userId, userComment, setUserComment, handleComment }) => {
   const navigate = useNavigate();
   return (
     <>
-      <form className="row blog-form">
+      <form className="row song-form">
         <div className="col-12 py-3">
           <textarea
             rows="4"

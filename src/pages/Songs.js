@@ -104,7 +104,7 @@ const Songs = ({ setActive }) => {
     <div>
       <div className="container">
         <div className="row">
-          <div className="blog-heading text-center py-2 mb-4">Recent Songs</div>
+          <div className="song-heading text-center py-2 mb-4">Recent Songs</div>
           {songs?.map((song) => (
             <div className="col-md-6" key={song.id}>
               <SongSection {...song} />
