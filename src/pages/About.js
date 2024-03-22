@@ -5,7 +5,7 @@ const About = () => {
     <div className="container padding">
       <div className="row justify-content-center">
         <div className="col-md-8">
-          <h2 className="text-center mb-4">Welcome to Our Music Portal</h2>
+          <h2 className="text-center mb-4">Welcome to Songzz</h2>
           <div className="row my-4">
             <div className="col-md-6">
               <div className="card hoverable-card mb-4">
