@@ -1,6 +1,6 @@
 # Songzz Web App
 
-![Songzz Logo](public/images/favicon-32x32.png)
+![Songzz](/public/images/favicon-32x32.png)
 
 Songzz is a web application built using ReactJS, Redux Toolkit, Redux Saga, Emotion, Styled System, Bootstrap, and Firebase for authentication and database management. It provides users with the ability to create, update, delete, and search songs based on title or tags.
 
