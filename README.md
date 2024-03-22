@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# Songzz Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![Songzz Logo](public/images/favicon-32x32.png)
 
-## Available Scripts
+Songzz is a web application built using ReactJS, Redux Toolkit, Redux Saga, Emotion, Styled System, Bootstrap, and Firebase for authentication and database management. It provides users with the ability to create, update, delete, and search songs based on title or tags.
 
-In the project directory, you can run:
+## Instructions
 
-### `npm start`
+To use Songzz, follow these instructions:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **Sign Up**: Users need to sign up to create, update, or delete songs. They can use a fake email for signing up, as no email confirmation is required.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+2. **Authentication**: Firebase is used for authentication. Once signed up, users can log in to access the features of the application.
 
-### `npm test`
+3. **Create Song**: After logging in, users can create a new song by providing the necessary details such as title, artist name, image and tags.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. **Update/Delete Song**: Users can only edit or delete songs that they have uploaded. They cannot modify or delete songs uploaded by other users.
 
-### `npm run build`
+5. **Search Song**: Songzz allows users to search for songs by title or tags, making it easy to find specific songs of interest.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Features
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **CRUD Operations**: Users can perform CRUD operations on songs, including creating, reading, updating, and deleting songs.
+  
+- **Authentication**: Firebase authentication ensures secure user sign-up and login processes.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **User-Specific Actions**: Users can only edit or delete songs that they have uploaded, ensuring data integrity and security.
 
-### `npm run eject`
+- **Search Functionality**: Songzz provides search functionality, allowing users to find songs based on title or tags quickly.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Technologies Used
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- ReactJS
+- Redux Toolkit
+- Redux Saga
+- Emotion
+- Styled System
+- Bootstrap
+- Firebase
+You can give Songzz a try [here](https://songzz-web.netlify.app).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
