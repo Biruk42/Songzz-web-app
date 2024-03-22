@@ -22,10 +22,12 @@ import UserComments from "../components/UserComments";
 import CommentBox from "../components/CommentBox";
 import { toast } from "react-toastify";
 import Like from "../components/Like";
+import Spinner from "../components/Spinner";
 
 const Detail = ({ setActive, user }) => {
   const userId = user?.uid;
   const { id } = useParams();
+  const [loading, setLoading] = useState(false);
   const [song, setSong] = useState(null);
   const [songs, setSongs] = useState([]);
   const [tags, setTags] = useState([]);
@@ -33,6 +35,7 @@ const Detail = ({ setActive, user }) => {
   let [likes, setLikes] = useState([]);
   const [userComment, setUserComment] = useState("");
   const [relatedSongs, setRelatedSongs] = useState([]);
+
   useEffect(() => {
     const getRecentSongs = async () => {
       const songRef = collection(db, "songs");
@@ -51,7 +54,12 @@ const Detail = ({ setActive, user }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
+  if (loading) {
+    return <Spinner />;
+  }
+
   const getSongDetail = async () => {
+    setLoading(true);
     const songRef = collection(db, "songs");
 
     const docRef = doc(db, "songs", id);
@@ -75,6 +83,7 @@ const Detail = ({ setActive, user }) => {
     });
     setRelatedSongs(relatedSongs);
     setActive(null);
+    setLoading(false);
   };
   const handleComment = async (e) => {
     e.preventDefault();
@@ -138,20 +147,22 @@ const Detail = ({ setActive, user }) => {
               </div>
               <br />
               <div className="custombox">
-                <h4 className="small-title">{comments?.length} Comment</h4>
-                {isEmpty(comments) ? (
-                  <UserComments
-                    msg={
-                      "No Comment yet posted on this song. Be the first to comment"
-                    }
-                  />
-                ) : (
-                  <>
-                    {comments?.map((comment) => (
-                      <UserComments {...comment} />
-                    ))}
-                  </>
-                )}
+                <div className="scroll">
+                  <h4 className="small-title">{comments?.length} Comment</h4>
+                  {isEmpty(comments) ? (
+                    <UserComments
+                      msg={
+                        "No Comment yet posted on this song. Be the first to comment"
+                      }
+                    />
+                  ) : (
+                    <>
+                      {comments?.map((comment) => (
+                        <UserComments {...comment} />
+                      ))}
+                    </>
+                  )}
+                </div>
               </div>
               <CommentBox
                 userId={userId}
