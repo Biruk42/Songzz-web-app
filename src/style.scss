@@ -434,6 +434,7 @@ $yellow: #f5bc04;
 .trending-img-size > img {
   height: 310px;
   min-width: 100%;
+  object-fit: cover;
 }
 
 .trending-img-relative {
