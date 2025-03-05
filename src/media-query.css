@@ -17,11 +17,18 @@
 
 @media (min-width: 480px) and (max-width: 767px) {
   .trending-img-size {
-    height: 226px;
+    /* height: 226px;
+    width: 226px; Ensure the width is equal to the height */
+    height: 100%;
+    width: 100%;
+    border-radius: 100%; /* Make the image circular */
+    overflow: hidden; /* Hide overflow to maintain circular shape */
   }
 
   .trending-img-size > img {
-    height: 240px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover; /* Ensure the image covers the container */
   }
 
   .trending-img-relative {
