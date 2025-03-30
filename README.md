@@ -35,5 +35,6 @@ To use Songzz, follow these instructions:
 - Styled System
 - Bootstrap
 - Firebase
+- Tailwind
 You can give Songzz a try [here](https://songzz-web.netlify.app).
 
